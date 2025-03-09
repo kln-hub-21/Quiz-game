@@ -12,6 +12,8 @@ const ChatQuizComponent = () => {
     const [currentAnswer, setCurrentAnswer] = useState("");
     const [answers, setAnswers] = useState([]);
     const [lifeLine, setLifeLine] = useState(3)
+    const [chatQuizStarted, setChatQuizStarted] = useState(false);
+
 
     const currentQuestion = chatQuestions[chatCurrentQuestionIndex];
 
@@ -31,7 +33,6 @@ const ChatQuizComponent = () => {
                 setAnswers(prev => ([...prev, { id: chatCurrentQuestionIndex, answers: [newAnswer] }]))
             }
             if (feedback === "Correct" || lifeLine <= 1) {
-                console.log("here")
                 setCurrentAnswer("")
                 setTimeout(() => {
                     setChatAnswer(currentQuestion.id, currentAnswer)
@@ -52,6 +53,13 @@ const ChatQuizComponent = () => {
     }
 
 
+    useEffect(()=> {
+        resetQuiz()
+    },[])
+
+
+
+
     if (chatQuizCompleted && chatQuizSubmitted) {
         return (
             <Container className="mt-4 text-center">
@@ -61,6 +69,27 @@ const ChatQuizComponent = () => {
                     Restart Quiz
                 </Button>
             </Container>
+        );
+    }
+    if (!chatQuizStarted) {
+        return (
+            <Container className="mt-4 text-center vh-85 w-75 p-3">
+                <Card className="shadow-lg p-3 h-100 d-flex flex-column align-items-center justify-content-center"
+                >
+                    <h3>Welcome to the Chat Quiz!</h3>
+                    <div className="w-100 d-flex justify-content-center w-100 h-75 p-4">
+                        <img
+                            src="/think.jpg"
+                            className="rounded w-100 h-100"
+                            alt="Quiz"
+                        />
+                    </div>
+                    <Button variant="primary" className="px-5" onClick={() => setChatQuizStarted(true)}>
+                        Let's Start Quiz
+                    </Button>
+                </Card>
+            </Container>
+
         );
     }
 
@@ -81,7 +110,8 @@ const ChatQuizComponent = () => {
                         <div>
                             {answers.filter((ele) => ele.id === chatCurrentQuestionIndex)?.[0]?.answers.map((ans, index) => (<>
                                 <div className="mb-3 w-75 float-right ms-auto">
-                                    <Card className={`${ans.feedback === "Correct" ? "border-success" : "border-danger"}`}>
+                                    <Card className={`${ans.feedback === "Correct" ? "border-success" : "border-danger"}`}
+                                        style={{ background: ans.feedback === "Correct" ? "#bef5bb" : "#e3d2d2" }}>
                                         <Card.Body className="px-3 py-2">{ans.answer}
                                         </Card.Body>
                                     </Card>
