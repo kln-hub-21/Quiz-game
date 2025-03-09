@@ -43,10 +43,10 @@ const useQuizStore = create((set) => ({
 
   //--------------------------chat quiz data starts here ------------------------------
 
-  chatQuestions : [ { id: 1, text: "What is React?", type: "text",  correct: "Library" },
+  chatQuestions : [ { id: 1, text: "What is the capital of india?", type: "text",  correct: "Delhi" },
   { id: 2, text: "Is Next.js a framework?", type: "text",  correct: "Yes" },
-  { id: 3, text: "Who created JavaScript?", type: "text", correct: "Brendan Eich" },
-  { id: 4, text: "What is the capital of India?", type: "text",  correct: "Delhi" },
+  { id: 3, text: "What is the capital of Telangana?", type: "text", correct: "Hyderabad" },
+  { id: 4, text: "Is ReactJS a library or framework?", type: "text",  correct: "Library" },
   { id: 5, text: "Is Node.js single-threaded?", type: "text",  correct: "Yes" }
 ],
   chatCurrentQuestionIndex: 0,

@@ -9,11 +9,19 @@ const McqQuizComponent = () => {
     const [textInput, setTextInput] = useState("");
     const [quizStarted, setQuizStarted] = useState(false);
 
-    useEffect(() => {
-        console.log(userAnswers, questions, 'userAnswers,questions')
-        console.log(quizCompleted,'quizCompleted')
+    useEffect(()=> {
+        resetQuiz()
+    },[])
 
-    }, [userAnswers, questions,quizCompleted])
+    const currentQuestion = questions[currentQuestionIndex];
+
+    const handleOptionSelect = (option) => setAnswer(currentQuestion.id, option);
+    const handleTextSubmit = () => {
+        if (textInput.trim() !== "") {
+            setAnswer(currentQuestion.id, textInput);
+            setTextInput("");
+        }
+    };
 
     if (quizCompleted && quizSubmitted) {
         return (
@@ -31,9 +39,8 @@ const McqQuizComponent = () => {
         return (
             <Container className="mt-4 text-center vh-85 w-75 p-3">
                 <Card className="shadow-lg p-3 h-100 d-flex flex-column align-items-center justify-content-center"
-                //  style={{ minWidth: "600px" }}
                  >
-                    <h3>Welcome to the Quiz Game!</h3>
+                    <h3>Welcome to the MCQ Quiz!</h3>
                     <div className="w-100 d-flex justify-content-center w-100 h-75 p-4">
                         <img
                             src="/quiz.jpg"
@@ -50,20 +57,11 @@ const McqQuizComponent = () => {
         );
     }
 
-    const currentQuestion = questions[currentQuestionIndex];
-
-    const handleOptionSelect = (option) => setAnswer(currentQuestion.id, option);
-    const handleTextSubmit = () => {
-        if (textInput.trim() !== "") {
-            setAnswer(currentQuestion.id, textInput);
-            setTextInput("");
-        }
-    };
+  
 
     return (
         <Container className="mt-4 d-flex justify-content-center vh-85 p-3">
             <Card className="shadow-lg p-3 h-100" style={{ width: "600px" }}>
-                {/* Question Section */}
                 <Card.Header className="bg-primary text-white text-center">
                     <h5>Question {currentQuestionIndex + 1}/{questions.length}</h5>
                 </Card.Header>
